@@ -1,0 +1,58 @@
+2024-09-14 22:44:14,147 - INFO - Starting the scraping process using URLs from data.json
+2024-09-14 22:44:14,147 - INFO - Loading URLs from the JSON file: data.json
+2024-09-14 22:44:14,149 - INFO - Skipping comment in JSON file.
+2024-09-14 22:44:14,149 - INFO - Scraping data for year 2024
+2024-09-14 22:44:14,149 - INFO - Starting to scrape data from https://www.iplt20.com/stats/2024
+2024-09-14 22:44:17,268 - ERROR - Error processing file data.json: Message: session not created: Chrome failed to start: exited normally.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location /usr/bin/chromium-browser is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Stacktrace:
+#0 0x5c261a0882da <unknown>
+#1 0x5c2619d56200 <unknown>
+#2 0x5c2619d8e1e5 <unknown>
+#3 0x5c2619d8a058 <unknown>
+#4 0x5c2619dd6a7e <unknown>
+#5 0x5c2619dd6296 <unknown>
+#6 0x5c2619dca673 <unknown>
+#7 0x5c2619d98473 <unknown>
+#8 0x5c2619d9947e <unknown>
+#9 0x5c261a04f0db <unknown>
+#10 0x5c261a053071 <unknown>
+#11 0x5c261a03b9d5 <unknown>
+#12 0x5c261a053bf2 <unknown>
+#13 0x5c261a020b6f <unknown>
+#14 0x5c261a077248 <unknown>
+#15 0x5c261a077417 <unknown>
+#16 0x5c261a0870cc <unknown>
+#17 0x7d7d25c9ca94 <unknown>
+#18 0x7d7d25d29c3c <unknown>
+
+2024-09-14 22:48:42,760 - INFO - Starting the scraping process using URLs from data.json
+2024-09-14 22:48:42,760 - INFO - Loading URLs from the JSON file: data.json
+2024-09-14 22:48:42,764 - INFO - Skipping comment in JSON file.
+2024-09-14 22:48:42,764 - INFO - Scraping data for year 2024
+2024-09-14 22:48:42,764 - INFO - Starting to scrape data from https://www.iplt20.com/stats/2024
+2024-09-14 22:48:45,183 - ERROR - Error processing file data.json: Message: session not created: Chrome failed to start: exited normally.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location /usr/bin/chromium-browser is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Stacktrace:
+#0 0x5d0233ed92da <unknown>
+#1 0x5d0233ba7200 <unknown>
+#2 0x5d0233bdf1e5 <unknown>
+#3 0x5d0233bdb058 <unknown>
+#4 0x5d0233c27a7e <unknown>
+#5 0x5d0233c27296 <unknown>
+#6 0x5d0233c1b673 <unknown>
+#7 0x5d0233be9473 <unknown>
+#8 0x5d0233bea47e <unknown>
+#9 0x5d0233ea00db <unknown>
+#10 0x5d0233ea4071 <unknown>
+#11 0x5d0233e8c9d5 <unknown>
+#12 0x5d0233ea4bf2 <unknown>
+#13 0x5d0233e71b6f <unknown>
+#14 0x5d0233ec8248 <unknown>
+#15 0x5d0233ec8417 <unknown>
+#16 0x5d0233ed80cc <unknown>
+#17 0x71353989ca94 <unknown>
+#18 0x713539929c3c <unknown>
+
