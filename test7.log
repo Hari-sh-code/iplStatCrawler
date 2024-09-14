@@ -1,0 +1,53 @@
+2024-09-15 00:03:48,051 - INFO - Starting the scraping process using URLs from data.json
+2024-09-15 00:03:48,052 - INFO - Loading URLs from the JSON file: data.json
+2024-09-15 00:03:48,052 - INFO - Starting to scrape data from https://www.iplt20.com/stats/2024
+2024-09-15 00:04:10,769 - ERROR - Error processing file data.json: Message: session not created: Chrome failed to start: exited normally.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location /snap/bin/chromium is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Stacktrace:
+#0 0x653c4dc282da <unknown>
+#1 0x653c4d8f6200 <unknown>
+#2 0x653c4d92e1e5 <unknown>
+#3 0x653c4d92a058 <unknown>
+#4 0x653c4d976a7e <unknown>
+#5 0x653c4d976296 <unknown>
+#6 0x653c4d96a673 <unknown>
+#7 0x653c4d938473 <unknown>
+#8 0x653c4d93947e <unknown>
+#9 0x653c4dbef0db <unknown>
+#10 0x653c4dbf3071 <unknown>
+#11 0x653c4dbdb9d5 <unknown>
+#12 0x653c4dbf3bf2 <unknown>
+#13 0x653c4dbc0b6f <unknown>
+#14 0x653c4dc17248 <unknown>
+#15 0x653c4dc17417 <unknown>
+#16 0x653c4dc270cc <unknown>
+#17 0x7fd8b0a9ca94 <unknown>
+#18 0x7fd8b0b29c3c <unknown>
+
+2024-09-15 00:16:42,413 - INFO - Starting the scraping process using URLs from data.json
+2024-09-15 00:16:42,413 - INFO - Loading URLs from the JSON file: data.json
+2024-09-15 00:16:42,413 - INFO - Starting to scrape data from https://www.iplt20.com/stats/2024
+2024-09-15 00:16:42,457 - ERROR - Error processing file data.json: Message: session not created
+from unknown error: no chrome binary at /snap/bin/chromium
+Stacktrace:
+#0 0x57df23e5c2da <unknown>
+#1 0x57df23b2a200 <unknown>
+#2 0x57df23b5fe2e <unknown>
+#3 0x57df23b5e058 <unknown>
+#4 0x57df23baaa7e <unknown>
+#5 0x57df23baa296 <unknown>
+#6 0x57df23b9e673 <unknown>
+#7 0x57df23b6c473 <unknown>
+#8 0x57df23b6d47e <unknown>
+#9 0x57df23e230db <unknown>
+#10 0x57df23e27071 <unknown>
+#11 0x57df23e0f9d5 <unknown>
+#12 0x57df23e27bf2 <unknown>
+#13 0x57df23df4b6f <unknown>
+#14 0x57df23e4b248 <unknown>
+#15 0x57df23e4b417 <unknown>
+#16 0x57df23e5b0cc <unknown>
+#17 0x7b067b49ca94 <unknown>
+#18 0x7b067b529c3c <unknown>
+

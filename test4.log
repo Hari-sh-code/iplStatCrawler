@@ -1,0 +1,27 @@
+2024-09-14 23:28:54,118 - INFO - Starting the scraping process using URLs from data.json
+2024-09-14 23:28:54,118 - INFO - Loading URLs from the JSON file: data.json
+2024-09-14 23:28:54,120 - INFO - Skipping comment in JSON file.
+2024-09-14 23:28:54,120 - INFO - Scraping data for year 2024
+2024-09-14 23:28:54,120 - INFO - Starting to scrape data from https://www.iplt20.com/stats/2024
+2024-09-14 23:29:54,234 - ERROR - Error processing file data.json: Message: session not created: DevToolsActivePort file doesn't exist
+Stacktrace:
+#0 0x59edad59c2da <unknown>
+#1 0x59edad26a200 <unknown>
+#2 0x59edad2a7669 <unknown>
+#3 0x59edad2a2eb9 <unknown>
+#4 0x59edad29e058 <unknown>
+#5 0x59edad2eaa7e <unknown>
+#6 0x59edad2ea296 <unknown>
+#7 0x59edad2de673 <unknown>
+#8 0x59edad2ac473 <unknown>
+#9 0x59edad2ad47e <unknown>
+#10 0x59edad5630db <unknown>
+#11 0x59edad567071 <unknown>
+#12 0x59edad54f9d5 <unknown>
+#13 0x59edad567bf2 <unknown>
+#14 0x59edad534b6f <unknown>
+#15 0x59edad58b248 <unknown>
+#16 0x59edad58b417 <unknown>
+#17 0x59edad59b0cc <unknown>
+#18 0x74c7e509ca94 <unknown>
+#19 0x74c7e5129c3c <unknown>

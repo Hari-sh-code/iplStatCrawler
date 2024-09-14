@@ -10,7 +10,7 @@ import time
 
 # Setup logging
 logging.basicConfig(
-    filename='test2.log',
+    filename='test8.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
@@ -24,8 +24,11 @@ def scrape_stats_from_url(url):
 
     # Set up Chrome options
     chrome_options = Options()
-    chrome_options.binary_location = "/usr/bin/chromium-browser"  # Path to Chromium binary
-    chrome_options.headless = False  # Set to True if you want to run Chromium in headless mode
+    chrome_options.binary_location = "/snap/bin/chromium"  # Path to Chromium binary
+    chrome_options.headless = False  # Set to True to run Chromium in headless mode
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
     # Create a new instance of the Chrome driver
     driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -123,17 +126,22 @@ def scrape_data(file_path):
     try:
         # Load JSON containing the URLs from the file
         logging.info(f"Loading URLs from the JSON file: {file_path}")
-        src = pd.read_json(file_path, typ='dictionary')
+        # src = pd.read_json(file_path, typ='dictionary')
 
         # Iterate over each URL in the JSON
-        for key, url in src.items():
-            if key == "_comment":
-                logging.info("Skipping comment in JSON file.")
-                continue
-            else:
-                logging.info(f"Scraping data for year {key}")
-                category_data = scrape_stats_from_url(url)
-                write_data_to_excel(category_data, key)
+        # for key, url in src.items():
+        #     if key == "_comment":
+        #         logging.info("Skipping comment in JSON file.")
+        #         continue
+        #     else:
+        #         logging.info(f"Scraping data for year {key}")
+        #         category_data = scrape_stats_from_url(url)
+        #         write_data_to_excel(category_data, key)
+
+        url = "https://www.iplt20.com/stats/2024"
+        category_data = scrape_stats_from_url(url)
+        write_data_to_excel(category_data,"2024")
+
     except Exception as e:
         logging.error(f"Error processing file {file_path}: {e}")
 
