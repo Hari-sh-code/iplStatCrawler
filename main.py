@@ -10,7 +10,7 @@ import time
 
 # Setup logging
 logging.basicConfig(
-    filename='test1.log',
+    filename='test2.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )

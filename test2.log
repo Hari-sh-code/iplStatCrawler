@@ -1,0 +1,29 @@
+2024-09-14 23:02:32,926 - INFO - Starting the scraping process using URLs from data.json
+2024-09-14 23:02:32,926 - INFO - Loading URLs from the JSON file: data.json
+2024-09-14 23:02:32,928 - INFO - Skipping comment in JSON file.
+2024-09-14 23:02:32,929 - INFO - Scraping data for year 2024
+2024-09-14 23:02:32,929 - INFO - Starting to scrape data from https://www.iplt20.com/stats/2024
+2024-09-14 23:02:35,741 - ERROR - Error processing file data.json: Message: session not created: Chrome failed to start: exited normally.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location /usr/bin/chromium-browser is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Stacktrace:
+#0 0x61141f97f2da <unknown>
+#1 0x61141f64d200 <unknown>
+#2 0x61141f6851e5 <unknown>
+#3 0x61141f681058 <unknown>
+#4 0x61141f6cda7e <unknown>
+#5 0x61141f6cd296 <unknown>
+#6 0x61141f6c1673 <unknown>
+#7 0x61141f68f473 <unknown>
+#8 0x61141f69047e <unknown>
+#9 0x61141f9460db <unknown>
+#10 0x61141f94a071 <unknown>
+#11 0x61141f9329d5 <unknown>
+#12 0x61141f94abf2 <unknown>
+#13 0x61141f917b6f <unknown>
+#14 0x61141f96e248 <unknown>
+#15 0x61141f96e417 <unknown>
+#16 0x61141f97e0cc <unknown>
+#17 0x7098bba9ca94 <unknown>
+#18 0x7098bbb29c3c <unknown>
+
