@@ -1,3 +1,4 @@
 pandas
 selenium
 chromedriver-binary
+openpyxl

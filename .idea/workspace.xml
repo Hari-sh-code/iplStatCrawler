@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9becc2f-4f5a-4534-a76c-21fdb3836e77" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test1.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test3.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test4.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test5.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test6.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test7.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test8.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +37,9 @@
     &quot;accountId&quot;: &quot;30105c94-217e-44a8-8077-800bf18cfa5b&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
