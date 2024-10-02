@@ -1,0 +1,8 @@
+pandas
+selenium
+chromedriver-binary
+openpyxl
+pyinquirer
+questionary
+fuzzywuzzy
+python-Levenshtein
