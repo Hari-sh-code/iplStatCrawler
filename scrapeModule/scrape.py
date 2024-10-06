@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import pandas as pd
 import time
+import os
 
 # Setup custom logger
 logger = logging.getLogger('web_scraper')
@@ -23,6 +24,7 @@ file_handler.setFormatter(formatter)
 # Add the handlers to the logger
 logger.addHandler(file_handler)
 
+
 def handle_cookies(driver):
     try:
         cookie_button = WebDriverWait(driver, 10).until(
@@ -32,6 +34,7 @@ def handle_cookies(driver):
         logger.info("Accepted cookie message.")
     except Exception as e:
         logger.info("No cookie message to handle.")
+
 
 def select_season(driver, year):
     try:
@@ -49,6 +52,7 @@ def select_season(driver, year):
         logger.info(f"Successfully selected season year {year}.")
     except Exception as e:
         logger.error(f"Failed to select the season year {year}: {e}")
+
 
 def attempt_load_table(driver, dropdown, retries, category):
     for attempt in range(retries):
@@ -77,6 +81,7 @@ def attempt_load_table(driver, dropdown, retries, category):
             logger.error(f"Error attempting to load table data: {e}")
             continue
     return False
+
 
 def scrape_stats_from_url(key, url):
     logger.info(f"Starting to scrape data from {url}")
@@ -156,16 +161,23 @@ def scrape_stats_from_url(key, url):
     logger.info(f"Finished scraping data from {url}")
     return category_data
 
+
 def write_data_to_excel(category_data, year):
     logger.info(f"Writing data to {year}_stats.xlsx")
     try:
-        with pd.ExcelWriter(f'{year}_stats.xlsx') as writer:
+        # Ensure the statsData directory exists
+        output_directory = './statsData'
+        os.makedirs(output_directory, exist_ok=True)
+        output_path = os.path.join(output_directory, f'{year}_stats.xlsx')
+
+        with pd.ExcelWriter(output_path) as writer:
             for category, df in category_data.items():
                 logger.info(f"Writing data for category: {category} to sheet")
                 df.to_excel(writer, sheet_name=category[:30], index=False)
-        logger.info(f"Data successfully written to {year}_stats.xlsx")
+        logger.info(f"Data successfully written to {output_path}")
     except Exception as e:
         logger.error(f"Error writing to Excel for year {year}: {e}")
+
 
 def scrape_data(file_path):
     logger.info(f"Starting the scraping process using URLs from {file_path}")
