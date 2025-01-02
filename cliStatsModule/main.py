@@ -1,135 +1,223 @@
-from user_interaction.navigate_back_to_prev import navigate_back_to_prev
+import tkinter as tk
+from tkinter import ttk, messagebox
 from data_management.list_categories import list_categories
 from data_management.load_category_data import load_category_data
 from data_management.validate_excel_files import validate_excel_files
-from user_interaction.get_year_selection import get_year_selection
-from user_interaction.filter_categories import filter_categories
-from user_interaction.view_all_players import view_all_players
-from user_interaction.navigate_back_to_main import navigate_back_to_main
 from player.collect_player_stats import collect_player_stats
 from player.suggest_player_names import suggest_player_names
-from player.filter_players_by_criteria import filter_players_by_criteria
-from collections import deque
-import pandas as pd
-import questionary
 
-def main():
-    while True:
+
+class StatsApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Player Stats")
+        self.geometry("800x600")
+
+        # Variables for categories, year, etc.
+        self.selected_year = None
+        self.excel_file = None
+        self.categories = []
+        self.selected_categories = []
+        self.row_counts = {}
+        self.collected_stats = []
+
+        # Initialize the UI
+        self.create_year_selection()
+
+    def clear_frame(self):
+        """Clears the current frame (removes all widgets)."""
+        for widget in self.winfo_children():
+            widget.destroy()
+
+    def add_back_button(self, callback):
+        """Adds a back button to the UI."""
+        back_button = tk.Button(self, text="Back", command=lambda: self.go_back(callback))
+        back_button.pack(pady=10)
+
+    def go_back(self, callback):
+        """Navigates back to the previous screen."""
+        self.clear_frame()
+        callback()
+
+    def go_back_to_main(self):
+        """Navigates back to the main screen (year selection)."""
+        self.clear_frame()
+        self.create_year_selection()
+
+    def create_year_selection(self):
+        """Creates the UI for year selection."""
+        self.clear_frame()
+        tk.Label(self, text="Select Year:").pack(pady=10)
+
         base_path = '../scrapeModule/statsData'
         years = validate_excel_files(base_path, range(2008, 2024 + 1))
 
         if not years:
-            print("No Excel files found for the specified years.")
+            messagebox.showerror("Error", "No Excel files found for the specified years.")
+            self.destroy()
             return
 
-        selected_year = get_year_selection(years)
-        excel_file = years[int(selected_year)]  # Convert selected_year back to int to access the dictionary
+        self.years = years
+        year_var = tk.StringVar(self)
+        year_menu = ttk.Combobox(self, textvariable=year_var, values=list(years.keys()))
+        year_menu.pack(pady=10)
 
-        categories = list_categories(excel_file)
+        tk.Button(self, text="Submit", command=lambda: self.load_categories(year_var.get())).pack(pady=10)
+        self.add_back_button(self.go_back_to_main)  # Add back button to go back to the main screen
 
-        if not categories:
-            print("No categories found in the file.")
+    def load_categories(self, selected_year):
+        """Loads categories for the selected year."""
+        self.selected_year = selected_year
+        self.excel_file = self.years[int(selected_year)]
+        self.categories = list_categories(self.excel_file)
+
+        if not self.categories:
+            messagebox.showerror("Error", "No categories found in the file.")
+            self.destroy()
             return
 
-        selected_categories = filter_categories(categories)
+        self.create_category_selection()
 
-        if not selected_categories:
-            print("No categories selected.")
+    def create_category_selection(self):
+        """Creates the UI for selecting categories."""
+        self.clear_frame()
+        tk.Label(self, text="Select Categories:").pack(pady=10)
+
+        self.selected_categories = []
+        for category in self.categories:
+            var = tk.BooleanVar()
+            tk.Checkbutton(self, text=category, variable=var).pack(anchor=tk.W)
+            self.selected_categories.append((category, var))
+
+        tk.Button(self, text="Submit", command=self.process_categories).pack(pady=10)
+        self.add_back_button(self.go_back_to_main)
+
+    def process_categories(self):
+        """Processes the selected categories."""
+        self.selected_categories = [cat for cat, var in self.selected_categories if var.get()]
+
+        if not self.selected_categories:
+            messagebox.showerror("Error", "No categories selected.")
             return
 
-        collected_stats = []  # Initialize collected_stats for all data
-        has_displayed_data = False  # Flag to check if data has been displayed
-        row_counts = {}  # Dictionary to store row counts for each category
+        self.create_display_options()
 
-        while True:
-            # First round options
-            if not has_displayed_data:
-                display_option = questionary.select(
-                    "How would you like to display the data?",
-                    choices=["Row count", "Display all category", "Search player", "Filter category"]
-                ).ask()
-            else:  # Add Exit option in the second round
-                display_option = questionary.select(
-                    "How would you like to display the data?",
-                    choices=["Row count", "Display all category", "Search player", "Filter category", "Exit"]
-                ).ask()
+    def create_display_options(self):
+        """Creates the UI for selecting display options."""
+        self.clear_frame()
+        self.display_option = tk.StringVar(self)
 
-            if display_option == "Row count":
-                # Get row count for each selected category
-                for selected_category in selected_categories:
-                    row_count = int(questionary.select(f"How many rows would you like to display for category '{selected_category}' (Max. 60)?",
-                                                       choices=[str(i) for i in range(1, 61)],
-                                                       default='5').ask())
-                    row_counts[selected_category] = row_count  # Store row count for the category
+        options = ["Row count", "Display all category", "Search player", "Exit"]
+        tk.Label(self, text="How would you like to display the data?").pack(pady=10)
+        display_menu = ttk.Combobox(self, textvariable=self.display_option, values=options)
+        display_menu.pack(pady=10)
 
-                    print(f"Total number of rows selected for category '{selected_category}': {row_count}")
-                    df = load_category_data(excel_file, selected_category)
-                    top_players = df.head(row_count)
-                    print(f"\nTop {row_count} players in category '{selected_category}':")
-                    print(top_players)
+        tk.Button(self, text="Submit", command=self.handle_display_option).pack(pady=10)
+        self.add_back_button(self.go_back_to_main)
 
-                    # Convert DataFrame to a list of dictionaries and append
-                    collected_stats.append(top_players.to_dict(orient='records'))
+    def handle_display_option(self):
+        """Handles the selected display option."""
+        option = self.display_option.get()
+        if option == "Row count":
+            self.handle_row_count()
+        elif option == "Display all category":
+            self.handle_display_all()
+        elif option == "Search player":
+            self.handle_search_player()
+        elif option == "Exit":
+            self.destroy()
 
-                has_displayed_data = True  # Set flag to indicate data has been displayed
+    def handle_row_count(self):
+        """Handles displaying row count results."""
+        self.clear_frame()
+        self.row_counts = {}
 
-            elif display_option == "Display all category":
-                for selected_category in selected_categories:
-                    df = load_category_data(excel_file, selected_category)
-                    view_all_players(df)
+        for selected_category in self.selected_categories:
+            tk.Label(self, text=f"Select row count for category '{selected_category}' (Max. 60)").pack(pady=10)
 
-                    # Convert DataFrame to a list of dictionaries and append
-                    collected_stats.append(df.to_dict(orient='records'))
+            row_count_var = tk.IntVar(value=5)
+            row_count_spinbox = tk.Spinbox(self, from_=1, to=60, textvariable=row_count_var)
+            row_count_spinbox.pack(pady=10)
 
-                has_displayed_data = True  # Set flag to indicate data has been displayed
+            self.row_counts[selected_category] = row_count_var
 
-            elif display_option == "Search player":
-                player_name = questionary.text("Enter the player's name:").ask()
+        tk.Button(self, text="Submit", command=self.display_row_count_results).pack(pady=10)
+        self.add_back_button(self.go_back_to_main)
 
-                # Collect player name suggestions from all selected categories
-                all_suggestions = set()
-                for selected_category in selected_categories:
-                    df = load_category_data(excel_file, selected_category)
-                    suggestions = suggest_player_names(df, player_name)
-                    all_suggestions.update(suggestions)
+    def display_row_count_results(self):
+        """Displays the top players based on the selected row count."""
+        self.clear_frame()
+        for selected_category in self.selected_categories:
+            row_count = self.row_counts[selected_category].get()
+            df = load_category_data(self.excel_file, selected_category)
+            top_players = df.head(row_count)
 
-                if all_suggestions:
-                    selected_suggestion = questionary.select("Select a suggested player:", choices=list(all_suggestions)).ask()
+            tk.Label(self, text=f"Top {row_count} players in category '{selected_category}':").pack(pady=10)
+            text_box = tk.Text(self, height=10, width=150)
+            text_box.pack(pady=50)
+            text_box.insert(tk.END, top_players.to_string(index=False))
 
-                    # Collect stats for the selected player from all categories
-                    for selected_category in selected_categories:
-                        df = load_category_data(excel_file, selected_category)
-                        player_stats = collect_player_stats(df, selected_suggestion, row_counts.get(selected_category, 5))  # Use stored row count or default to 5
-                        if player_stats is not None:
-                            print(f"\nStats for player '{selected_suggestion}' in category '{selected_category}':")
-                            print(player_stats)
+        self.add_back_button(self.create_display_options)
 
-                            # Convert player_stats DataFrame to a list of dictionaries and append
-                            collected_stats.append(player_stats.to_dict(orient='records'))
+    def handle_display_all(self):
+        """Handles displaying all data for the selected categories."""
+        self.clear_frame()
+        for selected_category in self.selected_categories:
+            df = load_category_data(self.excel_file, selected_category)
+            text_box = tk.Text(self, height=10, width=150)
+            text_box.pack(pady=10)
+            text_box.insert(tk.END, df.to_string(index=False))
 
-                else:
-                    print(f"No suggestions found for player '{player_name}'.")
+        self.add_back_button(self.create_display_options)
 
-            elif display_option == "Filter category":
-                for selected_category in selected_categories:
-                    df = load_category_data(excel_file, selected_category)
-                    filtered_df = filter_players_by_criteria(df)
+    def handle_search_player(self):
+        """Handles searching for a player."""
+        self.clear_frame()
+        tk.Label(self, text="Enter the player's name:").pack(pady=10)
+        player_name_var = tk.StringVar()
+        player_entry = tk.Entry(self, textvariable=player_name_var)
+        player_entry.pack(pady=10)
 
-                    # Convert filtered DataFrame to a list of dictionaries and append
-                    collected_stats.append(filtered_df.to_dict(orient='records'))
+        tk.Button(self, text="Submit", command=lambda: self.search_player(player_name_var.get())).pack(pady=10)
+        self.add_back_button(self.create_display_options)
 
-                has_displayed_data = True  # Set flag to indicate data has been displayed
+    def search_player(self, player_name):
+        """Searches for player names matching the input."""
+        self.clear_frame()
+        all_suggestions = set()
+        for selected_category in self.selected_categories:
+            df = load_category_data(self.excel_file, selected_category)
+            suggestions = suggest_player_names(df, player_name)
+            all_suggestions.update(suggestions)
 
-            elif display_option == "Exit":
-                break  # Exit the loop
+        if all_suggestions:
+            selected_suggestion = tk.StringVar(self)
+            suggestion_menu = ttk.Combobox(self, textvariable=selected_suggestion, values=list(all_suggestions))
+            suggestion_menu.pack(pady=10)
+            tk.Button(self, text="Submit", command=lambda: self.display_player_stats(selected_suggestion.get())).pack(pady=10)
+        else:
+            messagebox.showinfo("No Suggestions", f"No suggestions found for player '{player_name}'.")
 
-            # Check if the user wants to navigate back to the prev menu
-            if not navigate_back_to_prev():
-                break
+    def display_player_stats(self, player_name):
+        """Displays stats for the selected player."""
+        self.clear_frame()
+        for selected_category in self.selected_categories:
+            row_count = self.row_counts.get(selected_category, 5)  # Use stored row count or default to 5
+            df = load_category_data(self.excel_file, selected_category)
+            player_stats = collect_player_stats(df, player_name, row_count)
 
-        # Prompt to navigate back to the main menu or exit
-        if not navigate_back_to_main():
-            break
+            if player_stats is not None:
+                tk.Label(self, text=f"Stats for player '{player_name}' in category '{selected_category}':").pack(pady=10)
+                text_box = tk.Text(self, height=10, width=150)
+                text_box.pack(pady=10)
+                text_box.insert(tk.END, player_stats.to_string(index=False))
+            else:
+                messagebox.showinfo("No Stats",
+                                    f"No stats found for player '{player_name}' in category '{selected_category}'.")
+
+        self.add_back_button(self.handle_search_player)
+
 
 if __name__ == "__main__":
-    main()
+    app = StatsApp()
+    app.mainloop()
