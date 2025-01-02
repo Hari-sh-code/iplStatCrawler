@@ -45,7 +45,7 @@ python main.py
 The GUI will appear, allowing you to select the IPL year and categories, and display player statistics.
 
 ## Project Structure
-
+```
 ipl-stats-scraper/
 │
 ├── main.py             # Main script to run the application
@@ -53,7 +53,7 @@ ipl-stats-scraper/
 ├── README.md           # Project documentation
 ├── drivers/            # Folder containing browser drivers (e.g., ChromeDriver)
 └── data/               # Folder for storing scraped data (Excel files)
-
+```
 ## Functions
 
 Web Scraping:
