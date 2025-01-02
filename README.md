@@ -46,13 +46,42 @@ The GUI will appear, allowing you to select the IPL year and categories, and dis
 
 ## Project Structure
 ```
-ipl-stats-scraper/
-│
-├── main.py             # Main script to run the application
-├── requirements.txt    # List of required dependencies
-├── README.md           # Project documentation
-├── drivers/            # Folder containing browser drivers (e.g., ChromeDriver)
-└── data/               # Folder for storing scraped data (Excel files)
+├── README.md
+├── uiModule
+    ├── data_management
+    │   ├── __init__.py
+    │   ├── list_categories.py
+    │   ├── load_category_data.py
+    │   └── validate_excel_files.py
+    ├── main.py
+    ├── player
+    │   ├── __init__.py
+    │   ├── collect_player_stats.py
+    │   └── suggest_player_names.py
+    └── requirements.txt
+└── scrapeModule
+    ├── data.json
+    ├── outputLog.log
+    ├── requirements.txt
+    ├── scrape.py
+    └── statsData
+        ├── 2008_stats.xlsx
+        ├── 2009_stats.xlsx
+        ├── 2010_stats.xlsx
+        ├── 2011_stats.xlsx
+        ├── 2012_stats.xlsx
+        ├── 2013_stats.xlsx
+        ├── 2014_stats.xlsx
+        ├── 2015_stats.xlsx
+        ├── 2016_stats.xlsx
+        ├── 2017_stats.xlsx
+        ├── 2018_stats.xlsx
+        ├── 2019_stats.xlsx
+        ├── 2020_stats.xlsx
+        ├── 2021_stats.xlsx
+        ├── 2022_stats.xlsx
+        ├── 2023_stats.xlsx
+        └── 2024_stats.xlsx
 ```
 ## Functions
 
