@@ -1,0 +1,6 @@
+pandas
+openpyxl
+pyinquirer
+questionary
+fuzzywuzzy
+python-Levenshtein

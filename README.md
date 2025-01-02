@@ -27,7 +27,7 @@ git clone https://github.com/yourusername/ipl-stats-scraper.git
 ```
 2. Navigate to the project folder:
 ```
-cd ipl-stats-scraper
+cd iplStatCrawler
 ```
 3. Install the required dependencies:
 ```
